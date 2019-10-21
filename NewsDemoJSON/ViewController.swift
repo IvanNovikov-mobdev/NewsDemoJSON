@@ -42,15 +42,16 @@ class ViewController: UIViewController  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResponse?.articles.count ?? 0
     }
-    
-
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let news = searchResponse?.articles[indexPath.row]
+//        cell.headlineLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+//        cell.headlineLabel.adjustsFontForContentSizeCategory = true
         cell.textLabel?.text = news?.title
+//        cell.imageView?.image = UIImage(data: news?.urlToImage)
         return cell
     }
 }
