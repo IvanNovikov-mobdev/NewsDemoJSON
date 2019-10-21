@@ -10,23 +10,21 @@ import UIKit
 
 class ViewController: UIViewController  {
     
-    let networkService = NerworkService()
+    let networkService = NetworkService()
+    var searchResponse: SearchResponse? = nil
     
     @IBOutlet var table: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        let urlString = "https://newsapi.org/v2/top-headlines?" +
-        "country=us&" +
-        "apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
+        let urlString = "https://newsapi.org/v2/top-headlines?"+"country=us&"+"apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
 
-        networkService.request(urlString: urlString, completion: {(result) in
+        networkService.request(urlString: urlString, completion: {[weak self] (result) in
             switch result {
             case .success(let searchResponse):
-                searchResponse.results.map({(news) in
-                    print("news.newsTitle:", news.newsTitle)
-                })
+                self?.searchResponse = searchResponse
+                self?.table.reloadData()
             case .failure(let error):
                 print("error:", error)
             }
@@ -42,7 +40,7 @@ class ViewController: UIViewController  {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return searchResponse?.results.count ?? 0
     }
     
 
@@ -51,7 +49,8 @@ class ViewController: UIViewController  {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "123"
+        let news = searchResponse?.results[indexPath.row]
+        cell.textLabel?.text = news?.title
         return cell
     }
 }

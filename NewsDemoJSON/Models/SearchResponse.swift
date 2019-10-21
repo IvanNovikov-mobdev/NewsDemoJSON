@@ -15,5 +15,5 @@ struct SearchResponse: Decodable {
 
 struct News: Decodable {
     var urlToImage: String
-    var newsTitle: String
+    var title: String
 }

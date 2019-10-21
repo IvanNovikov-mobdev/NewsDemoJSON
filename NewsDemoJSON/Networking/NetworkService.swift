@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NerworkService {
+class NetworkService {
     func request(urlString: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
             guard let url = URL(string: urlString) else { return }
             URLSession.shared.dataTask(with: url) { (data, response, error) in
