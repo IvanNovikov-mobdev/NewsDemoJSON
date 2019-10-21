@@ -9,8 +9,8 @@
 import Foundation
 
 struct SearchResponse: Decodable {
-    var resultCount: Int
-    var results: [News]
+    var totalResults: Int
+    var articles: [News]
 }
 
 struct News: Decodable {

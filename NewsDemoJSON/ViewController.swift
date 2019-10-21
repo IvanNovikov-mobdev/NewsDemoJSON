@@ -40,7 +40,7 @@ class ViewController: UIViewController  {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResponse?.results.count ?? 0
+        return searchResponse?.articles.count ?? 0
     }
     
 
@@ -49,7 +49,7 @@ class ViewController: UIViewController  {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let news = searchResponse?.results[indexPath.row]
+        let news = searchResponse?.articles[indexPath.row]
         cell.textLabel?.text = news?.title
         return cell
     }
