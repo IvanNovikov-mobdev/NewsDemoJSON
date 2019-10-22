@@ -8,35 +8,40 @@
 
 import UIKit
 
-class ViewController: UIViewController  {
+class NewsViewController: UIViewController  {
     
     let networkService = NetworkService()
     var searchResponse: SearchResponse? = nil
     
-    @IBOutlet var table: UITableView!
+    @IBOutlet var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
         let urlString = "https://newsapi.org/v2/top-headlines?"+"country=us&"+"apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
-
+        
         networkService.request(urlString: urlString, completion: {[weak self] (result) in
             switch result {
             case .success(let searchResponse):
                 self?.searchResponse = searchResponse
-                self?.table.reloadData()
+                self?.tableView.reloadData()
             case .failure(let error):
                 print("error:", error)
             }
         })
+        setupTableView()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destination = segue.destination as? NewsDetailViewController,
+//          let indexPath = tableView.indexPathForSelectedRow {
+//        }
+      }
 
     
     
     private func setupTableView() {
-        table.delegate = self
-        table.dataSource = self
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,14 +49,15 @@ class ViewController: UIViewController  {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchResponse?.totalResults ?? 1
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NewsTableViewCell
         let news = searchResponse?.articles[indexPath.row]
-//        cell.headlineLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-//        cell.headlineLabel.adjustsFontForContentSizeCategory = true
-        cell.textLabel?.text = news?.title
-//        cell.imageView?.image = UIImage(data: news?.urlToImage)
+        cell.newsLabel?.text = news?.title
         return cell
     }
 }
