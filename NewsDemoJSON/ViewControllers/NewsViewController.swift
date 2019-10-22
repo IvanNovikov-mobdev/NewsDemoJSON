@@ -57,6 +57,12 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NewsTableViewCell
         let news = searchResponse?.articles[indexPath.row]
         cell.newsLabel?.text = news?.title
+        DispatchQueue.main.async {
+            if let url = URL(string:(news?.urlToImage)!) {
+                let data = try? Data(contentsOf: url)
+                cell.imageView?.image = UIImage(data: data!)
+            }
+        }
         return cell
     }
 }
