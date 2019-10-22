@@ -9,24 +9,29 @@
 import UIKit
 
 class NewsDetailViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
+    var selectedNews: News!
+    @IBOutlet weak var newsDescriptionLabel: UILabel!
+    @IBOutlet weak var newsDescriptionImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if selectedNews.description != nil {       newsDescriptionLabel.text = "\(selectedNews.description!)\r\n\(selectedNews.url)"
+        } else {
+            newsDescriptionLabel.text = "\(selectedNews.url)"
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+//extension NewsDetailViewController: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 1
+//    }
+    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        print("\(selectedNews.description) + \r\n\(selectedNews.url)")
+//            cell.textLabel?.text = "\(selectedNews.description) + \r\n\(selectedNews.url)"
+//        return cell
+//    }
+    
+//}

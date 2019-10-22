@@ -14,12 +14,10 @@ class NewsViewController: UIViewController  {
     var searchResponse: SearchResponse? = nil
     
     @IBOutlet var tableView: UITableView!
-
+    let urlString = "https://newsapi.org/v2/top-headlines?"+"country=us&"+"apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
     override func viewDidLoad() {
         super.viewDidLoad()
-        let urlString = "https://newsapi.org/v2/top-headlines?"+"country=us&"+"apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
-        
-        networkService.request(urlString: urlString, completion: {[weak self] (result) in
+            networkService.request(urlString: urlString, completion: {[weak self] (result) in
             switch result {
             case .success(let searchResponse):
                 self?.searchResponse = searchResponse
@@ -32,9 +30,10 @@ class NewsViewController: UIViewController  {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destination = segue.destination as? NewsDetailViewController,
-//          let indexPath = tableView.indexPathForSelectedRow {
-//        }
+        if let destination = segue.destination as? NewsDetailViewController,
+          let indexPath = tableView.indexPathForSelectedRow {
+            destination.selectedNews = searchResponse?.articles[indexPath.row]
+        }
       }
 
     

@@ -29,9 +29,6 @@ class NetworkService {
     //                    completion(nil, jsonError)
                         completion(.failure(jsonError))
                     }
-                    
-    //                let someString = String(data: data, encoding: .utf8)
-    //                print(someString ?? "no data")
                 }
             }.resume()
         }
