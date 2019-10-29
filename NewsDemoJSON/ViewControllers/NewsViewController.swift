@@ -14,6 +14,8 @@ class NewsViewController: UIViewController  {
     var searchResponse: SearchResponse? = nil
     
     @IBOutlet var tableView: UITableView!
+    
+    
     let urlString = "https://newsapi.org/v2/top-headlines?"+"country=us&"+"apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +59,16 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NewsTableViewCell
         let news = searchResponse?.articles[indexPath.row]
         cell.newsLabel?.text = news?.title
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInteractive).async {
             if let url = URL(string:(news?.urlToImage)!) {
                 let data = try? Data(contentsOf: url)
-                cell.imageView?.image = UIImage(data: data!)
+                DispatchQueue.main.async {
+                    if data != nil {
+                        cell.newsImageView?.image = UIImage(data: data!)
+                    } else {
+                        cell.newsImageView?.image = nil
+                    }
+                }
             }
         }
         return cell
