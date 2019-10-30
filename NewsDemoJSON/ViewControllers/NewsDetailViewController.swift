@@ -7,31 +7,35 @@
 //
 
 import UIKit
+import Foundation
 
 class NewsDetailViewController: UIViewController {
     var selectedNews: News!
-    @IBOutlet weak var newsDescriptionLabel: UILabel!
-    @IBOutlet weak var newsDescriptionImage: UIImageView!
+    @IBOutlet weak var detailNewsTextView: UITextView!
+    @IBOutlet weak var detailLinkTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if selectedNews.description != nil {       newsDescriptionLabel.text = "\(selectedNews.description!)\r\n\(selectedNews.url)"
+        detailNewsTextView.isEditable = false
+        detailNewsTextView.isSelectable = true
+        detailLinkTextView.isEditable = false
+        detailLinkTextView.isSelectable = true
+        
+        if selectedNews.description != nil {
+            detailNewsTextView.text = "\(selectedNews.description!)"
+            let attributedString = NSMutableAttributedString(string: "\(selectedNews.url)")
+            attributedString.addAttribute(.link, value: "\(selectedNews.url)", range: NSRange(location: 0, length: selectedNews.url.count))
+            detailLinkTextView.attributedText = attributedString
         } else {
-            newsDescriptionLabel.text = "\(selectedNews.url)"
+            let attributedString = NSMutableAttributedString(string: "\(selectedNews.url)")
+            attributedString.addAttribute(.link, value: "\(selectedNews.url)", range: NSRange(location: 0, length: selectedNews.url.count))
+            detailLinkTextView.attributedText = attributedString
         }
+        
+    }
+    
+    func detailLinkTextView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        UIApplication.shared.open(URL)
+        return false
     }
 }
-
-//extension NewsDetailViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        print("\(selectedNews.description) + \r\n\(selectedNews.url)")
-//            cell.textLabel?.text = "\(selectedNews.description) + \r\n\(selectedNews.url)"
-//        return cell
-//    }
-    
-//}

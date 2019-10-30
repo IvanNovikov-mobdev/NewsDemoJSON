@@ -103,39 +103,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bfO-uK-dVb">
-                                <rect key="frame" x="16" y="98" width="103" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="ZXL-ls-F2s"/>
-                                    <constraint firstAttribute="width" constant="103" id="dBh-c6-br6"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jW-hc-hnb">
-                                <rect key="frame" x="127" y="88" width="287" height="0.0"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kKw-BP-zj4">
+                                <rect key="frame" x="8" y="88" width="398" height="36.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Link" translatesAutoresizingMaskIntoConstraints="NO" id="QH2-rW-l3p">
+                                <rect key="frame" x="8" y="124.5" width="398" height="36.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="1jW-hc-hnb" firstAttribute="leading" secondItem="bfO-uK-dVb" secondAttribute="trailing" constant="8" symbolic="YES" id="6Tc-Ep-HCw"/>
-                            <constraint firstItem="1jW-hc-hnb" firstAttribute="top" secondItem="mkO-qZ-RbD" secondAttribute="top" id="AMB-DL-MYo"/>
-                            <constraint firstItem="mkO-qZ-RbD" firstAttribute="trailing" secondItem="1jW-hc-hnb" secondAttribute="trailing" id="CU4-Kg-9JJ"/>
-                            <constraint firstItem="bfO-uK-dVb" firstAttribute="top" secondItem="mkO-qZ-RbD" secondAttribute="top" constant="10" id="Zdq-Lu-syq"/>
-                            <constraint firstItem="bfO-uK-dVb" firstAttribute="leading" secondItem="mkO-qZ-RbD" secondAttribute="leading" constant="16" id="syy-39-yZz"/>
+                            <constraint firstItem="QH2-rW-l3p" firstAttribute="leading" secondItem="mkO-qZ-RbD" secondAttribute="leading" constant="8" id="4yf-Iu-i1t"/>
+                            <constraint firstItem="QH2-rW-l3p" firstAttribute="top" secondItem="kKw-BP-zj4" secondAttribute="bottom" id="8WL-rq-Ckv"/>
+                            <constraint firstItem="kKw-BP-zj4" firstAttribute="leading" secondItem="mkO-qZ-RbD" secondAttribute="leading" constant="8" id="Ls2-tl-bm8"/>
+                            <constraint firstItem="mkO-qZ-RbD" firstAttribute="trailing" secondItem="QH2-rW-l3p" secondAttribute="trailing" constant="8" id="nEL-v5-2FS"/>
+                            <constraint firstItem="mkO-qZ-RbD" firstAttribute="trailing" secondItem="kKw-BP-zj4" secondAttribute="trailing" constant="8" id="vUh-s1-0EB"/>
+                            <constraint firstItem="kKw-BP-zj4" firstAttribute="top" secondItem="mkO-qZ-RbD" secondAttribute="top" id="wre-Gt-903"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mkO-qZ-RbD"/>
                     </view>
                     <navigationItem key="navigationItem" id="0Ib-9G-KCO"/>
                     <connections>
-                        <outlet property="newsDescriptionImage" destination="bfO-uK-dVb" id="Rhs-QG-G0z"/>
-                        <outlet property="newsDescriptionLabel" destination="1jW-hc-hnb" id="aL7-oE-HSI"/>
+                        <outlet property="detailLinkTextView" destination="QH2-rW-l3p" id="sDn-XU-FF0"/>
+                        <outlet property="detailNewsTextView" destination="kKw-BP-zj4" id="uAM-rQ-tlU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4eL-Qx-VdL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="915" y="137.32394366197184"/>
+            <point key="canvasLocation" x="914.49275362318849" y="137.27678571428569"/>
         </scene>
     </scenes>
 </document>
