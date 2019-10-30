@@ -12,7 +12,6 @@ class NewsViewController: UIViewController  {
     
     let networkService = NetworkService()
     var searchResponse: SearchResponse? = nil
-    
     @IBOutlet var tableView: UITableView!
     
     
@@ -58,16 +57,30 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NewsTableViewCell
         let news = searchResponse?.articles[indexPath.row]
+        let imageCache = NSCache<NSString, UIImage>()
+        cell.newsImageView.image = nil
+        if let imageFromCache = imageCache.object(forKey: urlString as NSString) {
+            cell.newsImageView?.image = imageFromCache
+        }
         cell.newsLabel?.text = news?.title
         DispatchQueue.global(qos: .userInteractive).async {
-            if let url = URL(string:(news?.urlToImage)!) {
-                let data = try? Data(contentsOf: url)
-                DispatchQueue.main.async {
-                    if data != nil {
-                        cell.newsImageView?.image = UIImage(data: data!)
-                    } else {
-                        cell.newsImageView?.image = nil
+            if news?.urlToImage != nil {
+                if let url = URL(string:(news?.urlToImage)!) {
+                    let data = try? Data(contentsOf: url)
+                    DispatchQueue.main.async {
+                        if data != nil {
+                            let imageToCache = UIImage(data: data!)
+//                        cell.newsImageView?.image = UIImage(data: data!)
+                            cell.newsImageView?.image = imageToCache
+                            imageCache.setObject(imageToCache!, forKey: self.urlString as NSString)
+                        } else {
+                            cell.newsImageView?.image = nil
+                        }
                     }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    cell.newsImageView?.image = nil
                 }
             }
         }
