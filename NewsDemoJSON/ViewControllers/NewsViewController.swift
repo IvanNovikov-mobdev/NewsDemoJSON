@@ -15,7 +15,7 @@ class NewsViewController: UIViewController  {
     @IBOutlet var tableView: UITableView!
     
     
-    let urlString = "https://newsapi.org/v2/top-headlines?"+"country=us&"+"apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
+    let urlString = "https://newsapi.org/v2/top-headlines?"+"country=ru&"+"apiKey=0949157ff9884ddcbe0d8b7f881c6afd"
     override func viewDidLoad() {
         super.viewDidLoad()
             networkService.request(urlString: urlString, completion: {[weak self] (result) in
